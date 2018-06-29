@@ -28,7 +28,7 @@ from mg_process_macs2.tool.macs2 import Macs2
 # ------------------------------------------------------------------------------
 
 
-class process_test(Workflow):  # pylint: disable=invalid-name,too-few-public-methods
+class process_macs2(Workflow):  # pylint: disable=invalid-name,too-few-public-methods
     """
     Functions for demonstrating the pipeline set up.
     """
@@ -93,7 +93,7 @@ def main_json(config, in_metadata, out_metadata):
     logger.info("1. Instantiate and launch the App")
     from apps.jsonapp import JSONApp
     app = JSONApp()
-    result = app.launch(process_test,
+    result = app.launch(process_macs2,
                         config,
                         in_metadata,
                         out_metadata)

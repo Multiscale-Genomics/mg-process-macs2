@@ -21,37 +21,38 @@ import os.path
 import pytest
 
 from basic_modules.metadata import Metadata
-from mg_process_test.tool.testTool import testTool
+from mg_process_macs2.tool.macs2 import Macs2
 
 
-@pytest.mark.testTool
-def test_testTool():
+@pytest.mark.chipseq
+def test_macs2():
     """
-    Test case to ensure that the testTool works.
-
-    .. code-block:: none
-
-       pytest tests/test_tool.py
+    Function to test MACS2
     """
+
     resource_path = os.path.join(os.path.dirname(__file__), "data/")
 
     input_files = {
-        "input": resource_path + "test_input.txt"
+        "bam": resource_path + "macs2.Human.DRR000150.22_aln_filtered.bam"
     }
 
     output_files = {
-        "output": resource_path + "test_output.txt"
+        "narrow_peak": resource_path + "macs2.Human.DRR000150.22_peaks.narrowPeak",
+        "summits": resource_path + "macs2.Human.DRR000150.22_peaks.summits.bed",
+        "broad_peak": resource_path + "macs2.Human.DRR000150.22_peaks.broadPeak",
+        "gapped_peak": resource_path + "macs2.Human.DRR000150.22_peaks.gappedPeak"
     }
 
     metadata = {
-        "input": Metadata(
-            "text", "txt", input_files["input"], None,
-            {"assembly": "test"}
-        )
+        "bam": Metadata(
+            "data_chipseq", "fastq", [], None,
+            {'assembly': 'test'}),
     }
 
-    tt_handle = testTool()
-    tt_handle.run(input_files, metadata, output_files)
+    macs_handle = Macs2({"macs_nomodel_param": True})
+    macs_handle.run(input_files, metadata, output_files)
 
-    assert os.path.isfile(output_files["output"]) is True
-    assert os.path.getsize(output_files["output"]) > 0
+    assert os.path.isfile(resource_path + "macs2.Human.DRR000150.22_peaks.narrowPeak") is True
+    assert os.path.getsize(resource_path + "macs2.Human.DRR000150.22_peaks.narrowPeak") > 0
+    assert os.path.isfile(resource_path + "macs2.Human.DRR000150.22_peaks.summits.bed") is True
+    assert os.path.getsize(resource_path + "macs2.Human.DRR000150.22_peaks.summits.bed") > 0

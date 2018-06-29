@@ -21,7 +21,7 @@ import os.path
 import pytest
 
 from basic_modules.metadata import Metadata
-from process_test import process_test
+from process_macs2 import process_macs2
 
 
 @pytest.mark.testTool
@@ -38,26 +38,28 @@ def test_test_pipeline():
     resource_path = os.path.join(os.path.dirname(__file__), "data/")
 
     input_files = {
-        "input": resource_path + "test_input.txt"
+        "bam": resource_path + "macs2.Human.DRR000150.22_aln_filtered.bam"
+    }
+
+    output_files = {
+        "narrow_peak": resource_path + "macs2.Human.DRR000150.22_peaks.narrowPeak",
+        "summits": resource_path + "macs2.Human.DRR000150.22_peaks.summits.bed",
+        "broad_peak": resource_path + "macs2.Human.DRR000150.22_peaks.broadPeak",
+        "gapped_peak": resource_path + "macs2.Human.DRR000150.22_peaks.gappedPeak"
     }
 
     metadata = {
-        "input": Metadata(
-            "text", "txt", input_files["input"], None,
-            {"assembly": "test"}
-        )
+        "bam": Metadata(
+            "data_chipseq", "fastq", [], None,
+            {'assembly': 'test'}),
     }
 
-    files_out = {
-        "output": resource_path + 'test.txt',
-    }
-
-    tt_handle = process_test()
-    tt_files, tt_meta = tt_handle.run(input_files, metadata, files_out)
+    macs2_handle = process_macs2()
+    macs2_files, macs2_meta = macs2_handle.run(input_files, metadata, output_files)
 
     # Add tests for all files created
-    for f_out in tt_files:
+    for f_out in macs2_files:
         print("GENOME RESULTS FILE:", f_out)
-        assert os.path.isfile(tt_files[f_out]) is True
-        assert os.path.getsize(tt_files[f_out]) > 0
-        assert f_out in tt_meta
+        assert os.path.isfile(macs2_files[f_out]) is True
+        assert os.path.getsize(macs2_files[f_out]) > 0
+        assert f_out in macs2_meta

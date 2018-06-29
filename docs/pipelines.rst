@@ -18,7 +18,7 @@ Pipelines
 
 Test Tool
 ---------
-.. automodule:: process_test
+.. automodule:: mg-process_macs2.process_macs2
 
    This is a demonstration pipeline using the testTool.
 
@@ -46,10 +46,10 @@ Test Tool
    .. code-block:: none
       :linenos:
 
-      cd /home/compss/code/mg-process-test
-      runcompss --lang=python mg_process_test/process_test.py --config /home/compss/code/mg-process-test/tool_config/process_test.json --in_metadata /home/compss/code/mg-process-test/tests/json/input_test.json --out_metadata /home/compss/code/mg-process-test/tests/results.json
+      cd /home/compss/code/mg-process-macs2
+      runcompss --lang=python process_masc2.py --config /home/compss/code/mg-process-macs2/tool_config/process_test.json --in_metadata /home/compss/code/mg-process-macs2/tests/json/input_test.json --out_metadata /home/compss/code/mg-process-macs2/tests/results.json
 
    Methods
    =======
-   .. autoclass:: process_test.process_test
+   .. autoclass:: mg-process_macs2.process_macs2.process_macs2
       :members:

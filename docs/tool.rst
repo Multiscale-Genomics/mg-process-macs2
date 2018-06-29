@@ -16,9 +16,9 @@
 Tools
 =====
 
-.. automodule:: mg_process_test.tool
+.. automodule:: mg-process_macs2..tool
 
    Test Tool
    -----------
-   .. autoclass:: mg_process_test.tool.testTool.testTool
+   .. autoclass:: mg-process_macs2..tool.macs2.Macs2
       :members:
