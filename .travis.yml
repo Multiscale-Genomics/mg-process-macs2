@@ -15,6 +15,7 @@ env:
         - TESTENV=pylint
 
 before_install:
+    - sudo chmod +x scripts/travis/includeMAC2.sh
     - ./scripts/travis/includeMAC2.sh
 
 # command to install dependencies
