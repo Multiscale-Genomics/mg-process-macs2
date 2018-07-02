@@ -109,7 +109,7 @@ class Macs2(Tool):
         with open(gappedpeak, "w") as f_out:
             f_out.write("")
 
-        from tool.bam_utils import bamUtils
+        from mg_common.tool.bam_utils import bamUtils
 
         bam_tmp_file = bam_file.replace(".bam", "." + str(chromosome) + ".bam")
         bam_utils_handle = bamUtils()
@@ -409,10 +409,11 @@ class Macs2(Tool):
                 logger.fatal("MACS2: Something went wrong with the peak calling")
 
         # Merge the results files into single files.
-        with open(output_files['narrow_peak'], 'w') as file_np_handle:
-            with open(output_files['summits'], 'w') as file_s_handle:
-                with open(output_files['broad_peak'], 'w') as file_bp_handle:
-                    with open(output_files['gapped_peak'], 'w') as file_gp_handle:
+        logger.info("OUTPUT string: " + output_files['narrow_peak'])
+        with open(output_files['narrow_peak'], 'wb') as file_np_handle:
+            with open(output_files['summits'], 'wb') as file_s_handle:
+                with open(output_files['broad_peak'], 'wb') as file_bp_handle:
+                    with open(output_files['gapped_peak'], 'wb') as file_gp_handle:
                         for chromosome in chr_list:
                             if hasattr(sys, '_run_from_cmdl') is True:
                                 with open(
@@ -459,16 +460,20 @@ class Macs2(Tool):
 
         output_files_created = {}
         output_metadata = {}
+        print(output_files)
         for result_file in output_files:
+            print(result_file)
             if (
                     os.path.isfile(output_files[result_file]) is True
                     and os.path.getsize(output_files[result_file]) > 0
             ):
+                print("SURVIVED")
                 output_files_created[result_file] = output_files[result_file]
 
                 sources = [input_metadata["bam"].file_path]
                 if 'bam_bg' in input_files:
                     sources.append(input_metadata["bam_bg"].file_path)
+
                 output_metadata[result_file] = Metadata(
                     data_type="data_chip_seq",
                     file_type="BED",
@@ -484,7 +489,7 @@ class Macs2(Tool):
             else:
                 os.remove(output_files[result_file])
 
-        logger.info('MACS2: GENERATED FILES:', output_files)
+        logger.info('MACS2: GENERATED FILES: ', ' '.join(output_files))
 
         return (output_files_created, output_metadata)
 

@@ -19,7 +19,7 @@
    contain the root `toctree` directive.
 
 Documentation for MACS2 Pipeline
-===============================
+================================
 
 .. toctree::
    :caption: Table of Contents

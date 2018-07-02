@@ -15,6 +15,7 @@ env:
         - TESTENV=pylint
 
 before_install:
+    - pip install numpy
     - sudo chmod +x scripts/travis/includeMAC2.sh
     - ./scripts/travis/includeMAC2.sh
 
