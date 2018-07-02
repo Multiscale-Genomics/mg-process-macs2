@@ -55,7 +55,7 @@ def test_test_pipeline():
     }
 
     macs2_handle = process_macs2()
-    macs2_files, macs2_meta = macs2_handle.run(input_files, metadata, output_files)
+    macs2_handle.run(input_files, metadata, output_files)
 
     # Add tests for all files created
     assert os.path.isfile(resource_path + "macs2.Human.DRR000150.22_peaks.narrowPeak") is True
