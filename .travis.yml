@@ -41,13 +41,13 @@ addons:
             - cython
             - cython3
 
-cache:
-    directories:
-        - $HOME/.cache/pip
-        - ${HOME}/lib
+# cache:
+#     directories:
+#         - $HOME/.cache/pip
+#         - ${HOME}/lib
 
-before_cache:
-    - rm -f $HOME/.cache/pip/log/debug.log
+# before_cache:
+#     - rm -f $HOME/.cache/pip/log/debug.log
 
 before_install:
     - mkdir -p ${HOME}/bin
