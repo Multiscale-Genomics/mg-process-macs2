@@ -28,8 +28,10 @@ Python Modules
 ^^^^^^^^^^^^^^
 
 - mg-tool-api
+- mg-common
 - pylint
 - pytest
+- macs2
 
 Installation
 ------------
@@ -38,11 +40,11 @@ Directly from GitHub:
 .. code-block:: none
    :linenos:
 
-   git clone https://github.com/Multiscale-Genomics/mg-process-test.git
+   git clone https://github.com/Multiscale-Genomics/mg-process-macs2.git
 
 Using pip:
 
 .. code-block:: none
    :linenos:
 
-   pip install git+https://github.com/Multiscale-Genomics/mg-process-test.git
+   pip install git+https://github.com/Multiscale-Genomics/mg-process-macs2.git

@@ -18,7 +18,7 @@ Pipelines
 
 Test Tool
 ---------
-.. automodule:: mg-process_macs2.process_macs2
+.. automodule:: mg_process_macs2.process_macs2
 
    This is a demonstration pipeline using the testTool.
 
@@ -51,5 +51,5 @@ Test Tool
 
    Methods
    =======
-   .. autoclass:: mg-process_macs2.process_macs2.process_macs2
+   .. autoclass:: mg_process_macs2.process_macs2.process_macs2
       :members:
