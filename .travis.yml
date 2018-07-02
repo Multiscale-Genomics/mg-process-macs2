@@ -53,6 +53,7 @@ before_install:
 
     - pip install numpy
 
+    - cd ${HOME}/build/Multiscale-Genomics/mg-process-macs2
     - sudo chmod +x scripts/travis/includeSamTools.sh
     - if [[ "$TESTENV" == "code" ]]; then ./scripts/travis/includeSamTools.sh; fi
 
