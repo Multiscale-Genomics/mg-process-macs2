@@ -101,6 +101,6 @@ before_script:
 # command to run tests
 script:
     - cd ${HOME}/build/Multiscale-Genomics/mg-process-macs2
-    - if [[ "$TESTENV" == "code" ]]; then pytest -m "not underdeverlopment"; fi
+    - if [[ "$TESTENV" == "code" ]]; then pytest -s; fi
     - if [[ "$TESTENV" == "docs" ]]; then ./scripts/travis/docs_harness.sh; fi
     - if [[ "$TESTENV" == "pylint" ]]; then ./scripts/travis/pylint_harness.sh; fi
