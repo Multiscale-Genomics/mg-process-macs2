@@ -17,6 +17,7 @@ env:
 before_install:
     - pip install numpy
     - sudo chmod +x scripts/travis/includeMAC2.sh
+    - sudo chmod +x scripts/travis/includeSamTools.sh
     - ./scripts/travis/includeMAC2.sh
 
 # command to install dependencies
@@ -25,6 +26,8 @@ install:
     - pip install -r requirements.txt
     - if [[ "$TESTENV" == "docs" ]]; then pip install sphinx;fi
     - if [[ "$TESTENV" == "pylint" ]]; then pip install pylint;fi
+
+    - if [[ "$TESTENV" == "code" ]]; then ./scripts/travis/includeSamTools.sh; fi
 
 # command to run tests
 script:
