@@ -23,6 +23,8 @@ Software
 ^^^^^^^^
 
 - Python 2.7.10+
+- HTSlib
+- SAMtools
 
 Python Modules
 ^^^^^^^^^^^^^^
