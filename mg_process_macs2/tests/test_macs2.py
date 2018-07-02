@@ -56,3 +56,6 @@ def test_macs2():
     assert os.path.getsize(resource_path + "macs2.Human.DRR000150.22_peaks.narrowPeak") > 0
     assert os.path.isfile(resource_path + "macs2.Human.DRR000150.22_peaks.summits.bed") is True
     assert os.path.getsize(resource_path + "macs2.Human.DRR000150.22_peaks.summits.bed") > 0
+
+    os.remove(resource_path + "macs2.Human.DRR000150.22_peaks.narrowPeak")
+    os.remove(resource_path + "macs2.Human.DRR000150.22_peaks.summits.bed")

@@ -63,3 +63,5 @@ def test_test_pipeline():
         assert os.path.isfile(macs2_files[f_out]) is True
         assert os.path.getsize(macs2_files[f_out]) > 0
         assert f_out in macs2_meta
+
+        os.remove(macs2_files[f_out])
