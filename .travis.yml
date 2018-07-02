@@ -16,8 +16,6 @@
 language: python
 
 os: linux
-dist: trusty
-group: edge
 
 python:
     - "2.7"
