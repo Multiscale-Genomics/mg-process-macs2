@@ -58,10 +58,10 @@ def test_test_pipeline():
     macs2_files, macs2_meta = macs2_handle.run(input_files, metadata, output_files)
 
     # Add tests for all files created
-    for f_out in macs2_files:
-        print("GENOME RESULTS FILE:", f_out)
-        assert os.path.isfile(macs2_files[f_out]) is True
-        assert os.path.getsize(macs2_files[f_out]) > 0
-        assert f_out in macs2_meta
+    assert os.path.isfile(resource_path + "macs2.Human.DRR000150.22_peaks.narrowPeak") is True
+    assert os.path.getsize(resource_path + "macs2.Human.DRR000150.22_peaks.narrowPeak") > 0
+    assert os.path.isfile(resource_path + "macs2.Human.DRR000150.22_peaks.summits.bed") is True
+    assert os.path.getsize(resource_path + "macs2.Human.DRR000150.22_peaks.summits.bed") > 0
 
-        os.remove(macs2_files[f_out])
+    os.remove(resource_path + "macs2.Human.DRR000150.22_peaks.narrowPeak")
+    os.remove(resource_path + "macs2.Human.DRR000150.22_peaks.summits.bed")
