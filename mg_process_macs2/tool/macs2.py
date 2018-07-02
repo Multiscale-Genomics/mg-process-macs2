@@ -116,7 +116,7 @@ class Macs2(Tool):
         bam_utils_handle.bam_split(bam_file, bai_file, chromosome, bam_tmp_file)
 
         command_param = [
-            'macs2 callpeak', " ".join(macs_params), '-t', bam_file, '-n', name
+            'macs2 callpeak', " ".join(macs_params), '-t', bam_tmp_file, '-n', name
         ]
         if bam_file_bgd is not None:
             bam_bgd_tmp_file = bam_file_bgd.replace(".bam", "." + str(chromosome) + ".bam")
@@ -152,7 +152,7 @@ class Macs2(Tool):
 
         out_suffix = ['peaks.narrowPeak', 'peaks.broadPeak', 'peaks.gappedPeak', 'summits.bed']
         for f_suf in out_suffix:
-            output_tmp = output_dir + '/' + name + '_out_' + f_suf
+            output_tmp = output_dir + '/' + name + '_' + f_suf
             logger.info(output_tmp, os.path.isfile(output_tmp))
             if os.path.isfile(output_tmp) is True and os.path.getsize(output_tmp) > 0:
                 if f_suf == 'peaks.narrowPeak':
@@ -385,7 +385,7 @@ class Macs2(Tool):
         for chromosome in chr_list:
             if 'bam_bg' in input_files:
                 result = self.macs2_peak_calling(
-                    name,
+                    name + "." + str(chromosome),
                     str(input_files['bam']), str(input_files['bam']) + '.bai',
                     str(input_files['bam_bg']), str(input_files['bam_bg']) + '.bai',
                     command_params,
@@ -396,7 +396,7 @@ class Macs2(Tool):
                     chromosome)
             else:
                 result = self.macs2_peak_calling_nobgd(
-                    name,
+                    name + "." + str(chromosome),
                     str(input_files['bam']), str(input_files['bam']) + '.bai',
                     command_params,
                     str(output_files['narrow_peak']) + "." + str(chromosome),
@@ -409,7 +409,6 @@ class Macs2(Tool):
                 logger.fatal("MACS2: Something went wrong with the peak calling")
 
         # Merge the results files into single files.
-        logger.info("OUTPUT string: " + output_files['narrow_peak'])
         with open(output_files['narrow_peak'], 'wb') as file_np_handle:
             with open(output_files['summits'], 'wb') as file_s_handle:
                 with open(output_files['broad_peak'], 'wb') as file_bp_handle:
@@ -460,14 +459,12 @@ class Macs2(Tool):
 
         output_files_created = {}
         output_metadata = {}
-        print(output_files)
+        # print(output_files)
         for result_file in output_files:
-            print(result_file)
             if (
                     os.path.isfile(output_files[result_file]) is True
                     and os.path.getsize(output_files[result_file]) > 0
             ):
-                print("SURVIVED")
                 output_files_created[result_file] = output_files[result_file]
 
                 sources = [input_metadata["bam"].file_path]
