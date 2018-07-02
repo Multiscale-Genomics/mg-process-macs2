@@ -37,7 +37,6 @@ addons:
             - libbz2-dev
             - liblzma-dev
             - curl
-            - libcrypto
 
 
 cache:
