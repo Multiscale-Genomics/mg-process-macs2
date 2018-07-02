@@ -25,6 +25,7 @@ else
         git clone https://github.com/taoliu/MACS.git
         cd MACS
         git checkout MACS2p3
+        python setup_w_cython.py install
         pip install .
         alias macs2="macs2p3"
     fi
