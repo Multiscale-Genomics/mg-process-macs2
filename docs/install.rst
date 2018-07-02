@@ -23,6 +23,7 @@ Software
 ^^^^^^^^
 
 - Python 2.7.10+
+- Cython 0.25+
 - HTSlib
 - SAMtools
 
