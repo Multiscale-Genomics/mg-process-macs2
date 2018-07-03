@@ -1,6 +1,6 @@
 # mg-process-macs2
 
-[![Documentation Status](https://readthedocs.org/projects/mg-process-macs2/badge/?version=lamacs2)](http://mg-process-macs2.readthedocs.io/en/lamacs2/?badge=lamacs2) [![Build Status](https://travis-ci.org/Multiscale-Genomics/mg-process-macs2.svg?branch=master)](https://travis-ci.org/Multiscale-Genomics/mg-process-macs2) [![Code Health](https://landscape.io/github/Multiscale-Genomics/mg-process-macs2/master/landscape.svg?style=flat)](https://landscape.io/github/Multiscale-Genomics/mg-process-macs2/master)
+[![Documentation Status](//readthedocs.org/projects/mg-process-macs2/badge/?version=latest)](https://mg-process-macs2.readthedocs.io/en/latest/?badge=latest) [![Build Status](https://travis-ci.org/Multiscale-Genomics/mg-process-macs2.svg?branch=master)](https://travis-ci.org/Multiscale-Genomics/mg-process-macs2) [![Code Health](https://landscape.io/github/Multiscale-Genomics/mg-process-macs2/master/landscape.svg?style=flat)](https://landscape.io/github/Multiscale-Genomics/mg-process-macs2/master)
 
 Example pipelines file that is ready to run in the VRE matching the code in the HowTo documentation.
 
