@@ -11,3 +11,5 @@ env/*
 .cache
 .pytest_cache
 /tests/data/tmp
+build
+dist
