@@ -1,3 +1,2 @@
-macs2
 git+https://github.com/Multiscale-Genomics/mg-tool-api.git
 git+https://github.com/Multiscale-Genomics/mg-common.git
