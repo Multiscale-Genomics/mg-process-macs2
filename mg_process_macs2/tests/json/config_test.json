@@ -3,7 +3,7 @@
         {
             "required": true,
             "allow_multiple": false,
-            "name": "input",
+            "name": "bam",
             "value": "unique_file_id"
         }
     ],
