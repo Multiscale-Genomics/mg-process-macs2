@@ -414,15 +414,11 @@ class Macs2(Tool):
                 with open(output_files['broad_peak'], 'wb') as file_bp_handle:
                     with open(output_files['gapped_peak'], 'wb') as file_gp_handle:
                         for chromosome in chr_list:
+                            np_file_chr = "{}.{}".format(output_files['narrow_peak'], chromosome)
+                            s_file_chr = "{}.{}".format(output_files['summits'], chromosome)
+                            bp_file_chr = "{}.{}".format(output_files['broad_peak'], chromosome)
+                            gp_file_chr = "{}.{}".format(output_files['gapped_peak'], chromosome)
                             if hasattr(sys, '_run_from_cmdl') is True:
-                                np_file_chr = "{}.{}".format(
-                                    output_files['narrow_peak'], chromosome)
-                                s_file_chr = "{}.{}".format(
-                                    output_files['summits'], chromosome)
-                                bp_file_chr = "{}.{}".format(
-                                    output_files['broad_peak'], chromosome)
-                                gp_file_chr = "{}.{}".format(
-                                    output_files['gapped_peak'], chromosome)
                                 with open(np_file_chr, 'rb') as file_in_handle:
                                     file_np_handle.write(file_in_handle.read())
                                 with open(s_file_chr, 'rb') as file_in_handle:
