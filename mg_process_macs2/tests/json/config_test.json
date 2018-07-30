@@ -19,19 +19,64 @@
     ],
     "output_files": [
         {
-            "required": true,
+            "required": false,
             "allow_multiple": false,
-            "name": "output",
+            "name": "narrow_peak",
             "file": {
-                "file_type": "TXT",
+                "file_type": "bed",
                 "meta_data": {
                     "visible": true,
-                    "tool": "testTool",
+                    "tool": "macs2",
                     "description": "Output"
                 },
-                "file_path": "tests/data/test.txt",
-                "data_type": "text",
-                "compressed": ""
+                "file_path": "tests/data/macs2.Human.DRR000150.22_filtered_peaks.narrowPeak",
+                "data_type": "data_chip_seq",
+                "compressed": "null"
+            }
+        }, {
+            "required": false,
+            "allow_multiple": false,
+            "name": "summits",
+            "file": {
+                "file_type": "bed",
+                "meta_data": {
+                    "visible": true,
+                    "tool": "macs2",
+                    "description": "Output"
+                },
+                "file_path": "tests/data/macs2.Human.DRR000150.22_filtered_summits.bed",
+                "data_type": "data_chip_seq",
+                "compressed": "null"
+            }
+        }, {
+            "required": false,
+            "allow_multiple": false,
+            "name": "broad_peak",
+            "file": {
+                "file_type": "bed",
+                "meta_data": {
+                    "visible": true,
+                    "tool": "macs2",
+                    "description": "Output"
+                },
+                "file_path": "tests/data/macs2.Human.DRR000150.22_filtered_peaks.broadPeak",
+                "data_type": "data_chip_seq",
+                "compressed": "null"
+            }
+        }, {
+            "required": false,
+            "allow_multiple": false,
+            "name": "gapped_peak",
+            "file": {
+                "file_type": "bed",
+                "meta_data": {
+                    "visible": true,
+                    "tool": "macs2",
+                    "description": "Output"
+                },
+                "file_path": "tests/data/macs2.Human.DRR000150.22_filtered_peaks.gappedPeak",
+                "data_type": "data_chip_seq",
+                "compressed": "null"
             }
         }
     ]
