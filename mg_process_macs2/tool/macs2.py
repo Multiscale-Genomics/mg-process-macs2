@@ -415,47 +415,31 @@ class Macs2(Tool):
                     with open(output_files['gapped_peak'], 'wb') as file_gp_handle:
                         for chromosome in chr_list:
                             if hasattr(sys, '_run_from_cmdl') is True:
-                                with open(
-                                    output_files['narrow_peak'] + "." + str(chromosome), 'rb'
-                                ) as file_in_handle:
+                                np_file_chr = "{}.{}".format(output_files['narrow_peak'], chromosome)
+                                s_file_chr = "{}.{}".format(output_files['summits'], chromosome)
+                                bp_file_chr = "{}.{}".format(output_files['broad_peak'], chromosome)
+                                gp_file_chr = "{}.{}".format(output_files['gapped_peak'], chromosome)
+                                with open(np_file_chr, 'rb') as file_in_handle:
                                     file_np_handle.write(file_in_handle.read())
-                                with open(
-                                    output_files['summits'] + "." + str(chromosome), 'rb'
-                                ) as file_in_handle:
+                                with open(s_file_chr, 'rb') as file_in_handle:
                                     file_s_handle.write(file_in_handle.read())
-                                with open(
-                                    output_files['broad_peak'] + "." + str(chromosome), 'rb'
-                                ) as file_in_handle:
+                                with open(bp_file_chr, 'rb') as file_in_handle:
                                     file_bp_handle.write(file_in_handle.read())
-                                with open(
-                                    output_files['gapped_peak'] + "." + str(chromosome), 'rb'
-                                ) as file_in_handle:
+                                with open(gp_file_chr, 'rb') as file_in_handle:
                                     file_gp_handle.write(file_in_handle.read())
                             else:
-                                with compss_open(
-                                    output_files['narrow_peak'] + "." + str(chromosome), 'rb'
-                                ) as file_in_handle:
+                                with compss_open(np_file_chr, 'rb') as file_in_handle:
                                     file_np_handle.write(file_in_handle.read())
-                                with compss_open(
-                                    output_files['summits'] + "." + str(chromosome), 'rb'
-                                ) as file_in_handle:
+                                with compss_open(s_file_chr, 'rb') as file_in_handle:
                                     file_s_handle.write(file_in_handle.read())
-                                with compss_open(
-                                    output_files['broad_peak'] + "." + str(chromosome), 'rb'
-                                ) as file_in_handle:
+                                with compss_open(bp_file_chr, 'rb') as file_in_handle:
                                     file_bp_handle.write(file_in_handle.read())
-                                with compss_open(
-                                    output_files['gapped_peak'] + "." + str(chromosome), 'rb'
-                                ) as file_in_handle:
+                                with compss_open(gp_file_chr, 'rb') as file_in_handle:
                                     file_gp_handle.write(file_in_handle.read())
-                                compss_delete_file(
-                                    output_files['narrow_peak'] + "." + str(chromosome))
-                                compss_delete_file(
-                                    output_files['summits'] + "." + str(chromosome))
-                                compss_delete_file(
-                                    output_files['broad_peak'] + "." + str(chromosome))
-                                compss_delete_file(
-                                    output_files['gapped_peak'] + "." + str(chromosome))
+                                compss_delete_file(np_file_chr)
+                                compss_delete_file(s_file_chr)
+                                compss_delete_file(bp_file_chr)
+                                compss_delete_file(gp_file_chr)
 
         output_files_created = {}
         output_metadata = {}
