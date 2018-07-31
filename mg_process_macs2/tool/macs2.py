@@ -63,7 +63,7 @@ class Macs2(Tool):
         self.configuration.update(configuration)
 
     @staticmethod
-    def _macs2_runner(  # pylint: disable=too-many-locals,too-many-statements,too-many-statements,too-many-arguments
+    def macs2_peak_calling(  # pylint: disable=too-many-locals,too-many-statements,too-many-statements,too-many-arguments
             name, bam_file, bai_file, macs_params,
             narrowpeak, summits_bed, broadpeak, gappedpeak,
             chromosome=None, bam_file_bgd=None, bai_file_bgd=None):
@@ -167,112 +167,6 @@ class Macs2(Tool):
                     with open(gappedpeak, "wb") as f_out:
                         with open(output_tmp, "rb") as f_in:
                             f_out.write(f_in.read())
-
-        return True
-
-    @constraint(ComputingUnits="1")
-    @task(
-        returns=bool,
-        name=IN,
-        bam_file=FILE_IN,
-        bai_file=FILE_IN,
-        bam_file_bgd=FILE_IN,
-        bai_file_bgd=FILE_IN,
-        macs_params=IN,
-        narrowpeak=FILE_OUT,
-        summits_bed=FILE_OUT,
-        broadpeak=FILE_OUT,
-        gappedpeak=FILE_OUT,
-        chromosome=IN,
-        isModifier=False)
-    def macs2_peak_calling(  # pylint: disable=no-self-use,too-many-arguments
-            self, name, bam_file, bai_file, bam_file_bgd, bai_file_bgd, macs_params,
-            narrowpeak, summits_bed, broadpeak, gappedpeak, chromosome):  # pylint: disable=unused-argument
-        """
-        Function to run MACS2 for peak calling on aligned sequence files and
-        normalised against a provided background set of alignments.
-
-        Parameters
-        ----------
-        name : str
-            Name to be used to identify the files
-        bam_file : str
-            Location of the aligned FASTQ files as a bam file
-        bam_file_bgd : str
-            Location of the aligned FASTQ files as a bam file representing
-            background values for the cell
-
-        Returns
-        -------
-        narrowPeak : file
-            BED6+4 file - ideal for transcription factor binding site
-            identification
-        summitPeak : file
-            BED4+1 file - Contains the peak summit locations for everypeak
-        broadPeak : file
-            BED6+3 file - ideal for histone binding site identification
-        gappedPeak : file
-            BED12+3 file - Contains a merged set of the broad and narrow peak
-            files
-
-        Definitions defined for each of these files have come from the MACS2
-        documentation described in the docs at https://github.com/taoliu/MACS
-        """
-
-        self._macs2_runner(
-            name, bam_file, bai_file, macs_params,
-            narrowpeak, summits_bed, broadpeak, gappedpeak,
-            chromosome, bam_file_bgd, bai_file_bgd)
-
-        return True
-
-    @constraint(ComputingUnits="1")
-    @task(
-        returns=bool,
-        name=IN,
-        bam_file=FILE_IN,
-        bai_file=FILE_IN,
-        macs_params=IN,
-        narrowpeak=FILE_OUT,
-        summits_bed=FILE_OUT,
-        broadpeak=FILE_OUT,
-        gappedpeak=FILE_OUT,
-        chromosome=IN,
-        isModifier=False)
-    def macs2_peak_calling_nobgd(  # pylint: disable=too-many-arguments,no-self-use,too-many-branches
-            self, name, bam_file, bai_file, macs_params,
-            narrowpeak, summits_bed, broadpeak, gappedpeak, chromosome):  # pylint: disable=unused-argument
-        """
-        Function to run MACS2 for peak calling on aligned sequence files without
-        a background dataset for normalisation.
-
-        Parameters
-        ----------
-        name : str
-            Name to be used to identify the files
-        bam_file : str
-            Location of the aligned FASTQ files as a bam file
-
-        Returns
-        -------
-        narrowPeak : file
-            BED6+4 file - ideal for transcription factor binding site
-            identification
-        summitPeak : file
-            BED4+1 file - Contains the peak summit locations for everypeak
-        broadPeak : file
-            BED6+3 file - ideal for histone binding site identification
-        gappedPeak : file
-            BED12+3 file - Contains a merged set of the broad and narrow peak
-            files
-
-        Definitions defined for each of these files have come from the MACS2
-        documentation described in the docs at https://github.com/taoliu/MACS
-        """
-        self._macs2_runner(
-            name, bam_file, bai_file, macs_params,
-            narrowpeak, summits_bed, broadpeak, gappedpeak,
-            chromosome)
 
         return True
 
