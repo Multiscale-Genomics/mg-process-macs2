@@ -62,7 +62,7 @@ class Macs2(Tool):
         bam_file : str
             Location of the aligned FASTQ files as a bam file
         bai_file : str
-            Location of the index file for the aligned FASTQ bam file
+            Location of the bam index file
         narrowpeak : str
             Location of the output narrowpeak file
         summits_bed : str
@@ -71,9 +71,15 @@ class Macs2(Tool):
             Location of the output broadpeak file
         gappedpeak : str
             Location of the output gappedpeak file
+        chromosome : str
+            If the tool is to be run over a single chromosome the matching
+            chromosome name should be specified. If None then the whole bam file
+            is analysed
         bam_file_bgd : str
             Location of the aligned FASTQ files as a bam file representing
             background values for the cell
+        bai_file_bgd : str
+            Location of the background bam index file
 
         Returns
         -------
@@ -122,7 +128,7 @@ class Macs2(Tool):
         command_param.append('--outdir ' + output_dir)
         command_line = ' '.join(command_param)
 
-        if bam_utils_handle.bam_count_reads(bam_tmp_file, aligned=True) > 0:
+        if int(bam_utils_handle.bam_count_reads(bam_tmp_file, aligned=True)) > 0:
             try:
                 args = shlex.split(command_line)
                 process = subprocess.Popen(args)
