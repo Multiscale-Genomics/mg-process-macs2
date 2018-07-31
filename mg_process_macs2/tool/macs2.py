@@ -19,24 +19,8 @@ from __future__ import print_function
 import os
 import shlex
 import subprocess
-import sys
 
 from utils import logger
-
-try:
-    if hasattr(sys, '_run_from_cmdl') is True:
-        raise ImportError
-    from pycompss.api.parameter import FILE_IN, FILE_OUT, IN
-    from pycompss.api.task import task
-    from pycompss.api.constraint import constraint
-    from pycompss.api.api import compss_wait_on, compss_open, compss_delete_file
-except ImportError:
-    logger.warn("[Warning] Cannot import \"pycompss\" API packages.")
-    logger.warn("          Using mock decorators.")
-
-    from utils.dummy_pycompss import FILE_IN, FILE_OUT, IN  # pylint: disable=ungrouped-imports
-    from utils.dummy_pycompss import task, constraint  # pylint: disable=ungrouped-imports
-    from utils.dummy_pycompss import compss_wait_on, compss_open, compss_delete_file  # pylint: disable=ungrouped-imports
 
 from basic_modules.metadata import Metadata
 from basic_modules.tool import Tool
@@ -63,7 +47,7 @@ class Macs2(Tool):
         self.configuration.update(configuration)
 
     @staticmethod
-    def _macs2_runner(  # pylint: disable=too-many-locals,too-many-statements,too-many-statements,too-many-arguments
+    def macs2_peak_calling(  # pylint: disable=too-many-locals,too-many-statements,too-many-statements,too-many-arguments
             name, bam_file, bai_file, macs_params,
             narrowpeak, summits_bed, broadpeak, gappedpeak,
             chromosome=None, bam_file_bgd=None, bai_file_bgd=None):
@@ -77,6 +61,16 @@ class Macs2(Tool):
             Name to be used to identify the files
         bam_file : str
             Location of the aligned FASTQ files as a bam file
+        bai_file : str
+            Location of the index file for the aligned FASTQ bam file
+        narrowpeak : str
+            Location of the output narrowpeak file
+        summits_bed : str
+            Location of the output summits bed file
+        broadpeak : str
+            Location of the output broadpeak file
+        gappedpeak : str
+            Location of the output gappedpeak file
         bam_file_bgd : str
             Location of the aligned FASTQ files as a bam file representing
             background values for the cell
@@ -167,112 +161,6 @@ class Macs2(Tool):
                     with open(gappedpeak, "wb") as f_out:
                         with open(output_tmp, "rb") as f_in:
                             f_out.write(f_in.read())
-
-        return True
-
-    @constraint(ComputingUnits="1")
-    @task(
-        returns=bool,
-        name=IN,
-        bam_file=FILE_IN,
-        bai_file=FILE_IN,
-        bam_file_bgd=FILE_IN,
-        bai_file_bgd=FILE_IN,
-        macs_params=IN,
-        narrowpeak=FILE_OUT,
-        summits_bed=FILE_OUT,
-        broadpeak=FILE_OUT,
-        gappedpeak=FILE_OUT,
-        chromosome=IN,
-        isModifier=False)
-    def macs2_peak_calling(  # pylint: disable=no-self-use,too-many-arguments
-            self, name, bam_file, bai_file, bam_file_bgd, bai_file_bgd, macs_params,
-            narrowpeak, summits_bed, broadpeak, gappedpeak, chromosome):  # pylint: disable=unused-argument
-        """
-        Function to run MACS2 for peak calling on aligned sequence files and
-        normalised against a provided background set of alignments.
-
-        Parameters
-        ----------
-        name : str
-            Name to be used to identify the files
-        bam_file : str
-            Location of the aligned FASTQ files as a bam file
-        bam_file_bgd : str
-            Location of the aligned FASTQ files as a bam file representing
-            background values for the cell
-
-        Returns
-        -------
-        narrowPeak : file
-            BED6+4 file - ideal for transcription factor binding site
-            identification
-        summitPeak : file
-            BED4+1 file - Contains the peak summit locations for everypeak
-        broadPeak : file
-            BED6+3 file - ideal for histone binding site identification
-        gappedPeak : file
-            BED12+3 file - Contains a merged set of the broad and narrow peak
-            files
-
-        Definitions defined for each of these files have come from the MACS2
-        documentation described in the docs at https://github.com/taoliu/MACS
-        """
-
-        self._macs2_runner(
-            name, bam_file, bai_file, macs_params,
-            narrowpeak, summits_bed, broadpeak, gappedpeak,
-            chromosome, bam_file_bgd, bai_file_bgd)
-
-        return True
-
-    @constraint(ComputingUnits="1")
-    @task(
-        returns=bool,
-        name=IN,
-        bam_file=FILE_IN,
-        bai_file=FILE_IN,
-        macs_params=IN,
-        narrowpeak=FILE_OUT,
-        summits_bed=FILE_OUT,
-        broadpeak=FILE_OUT,
-        gappedpeak=FILE_OUT,
-        chromosome=IN,
-        isModifier=False)
-    def macs2_peak_calling_nobgd(  # pylint: disable=too-many-arguments,no-self-use,too-many-branches
-            self, name, bam_file, bai_file, macs_params,
-            narrowpeak, summits_bed, broadpeak, gappedpeak, chromosome):  # pylint: disable=unused-argument
-        """
-        Function to run MACS2 for peak calling on aligned sequence files without
-        a background dataset for normalisation.
-
-        Parameters
-        ----------
-        name : str
-            Name to be used to identify the files
-        bam_file : str
-            Location of the aligned FASTQ files as a bam file
-
-        Returns
-        -------
-        narrowPeak : file
-            BED6+4 file - ideal for transcription factor binding site
-            identification
-        summitPeak : file
-            BED4+1 file - Contains the peak summit locations for everypeak
-        broadPeak : file
-            BED6+3 file - ideal for histone binding site identification
-        gappedPeak : file
-            BED12+3 file - Contains a merged set of the broad and narrow peak
-            files
-
-        Definitions defined for each of these files have come from the MACS2
-        documentation described in the docs at https://github.com/taoliu/MACS
-        """
-        self._macs2_runner(
-            name, bam_file, bai_file, macs_params,
-            narrowpeak, summits_bed, broadpeak, gappedpeak,
-            chromosome)
 
         return True
 
@@ -374,7 +262,6 @@ class Macs2(Tool):
             )
 
         chr_list = bam_utils_handle.bam_list_chromosomes(input_files['bam'])
-        chr_list = compss_wait_on(chr_list)
 
         logger.info("MACS2 COMMAND PARAMS: " + ", ".join(command_params))
 
@@ -383,15 +270,15 @@ class Macs2(Tool):
                 result = self.macs2_peak_calling(
                     name + "." + str(chromosome),
                     str(input_files['bam']), str(input_files['bam']) + '.bai',
-                    str(input_files['bam_bg']), str(input_files['bam_bg']) + '.bai',
                     command_params,
                     str(output_files['narrow_peak']) + "." + str(chromosome),
                     str(output_files['summits']) + "." + str(chromosome),
                     str(output_files['broad_peak']) + "." + str(chromosome),
                     str(output_files['gapped_peak']) + "." + str(chromosome),
-                    chromosome)
+                    chromosome,
+                    str(input_files['bam_bg']), str(input_files['bam_bg']) + '.bai')
             else:
-                result = self.macs2_peak_calling_nobgd(
+                result = self.macs2_peak_calling(
                     name + "." + str(chromosome),
                     str(input_files['bam']), str(input_files['bam']) + '.bai',
                     command_params,
@@ -414,32 +301,17 @@ class Macs2(Tool):
                             s_file_chr = "{}.{}".format(output_files['summits'], chromosome)
                             bp_file_chr = "{}.{}".format(output_files['broad_peak'], chromosome)
                             gp_file_chr = "{}.{}".format(output_files['gapped_peak'], chromosome)
-                            if hasattr(sys, '_run_from_cmdl') is True:
-                                with open(np_file_chr, 'rb') as file_in_handle:
-                                    file_np_handle.write(file_in_handle.read())
-                                with open(s_file_chr, 'rb') as file_in_handle:
-                                    file_s_handle.write(file_in_handle.read())
-                                with open(bp_file_chr, 'rb') as file_in_handle:
-                                    file_bp_handle.write(file_in_handle.read())
-                                with open(gp_file_chr, 'rb') as file_in_handle:
-                                    file_gp_handle.write(file_in_handle.read())
-                            else:
-                                with compss_open(np_file_chr, 'rb') as file_in_handle:
-                                    file_np_handle.write(file_in_handle.read())
-                                with compss_open(s_file_chr, 'rb') as file_in_handle:
-                                    file_s_handle.write(file_in_handle.read())
-                                with compss_open(bp_file_chr, 'rb') as file_in_handle:
-                                    file_bp_handle.write(file_in_handle.read())
-                                with compss_open(gp_file_chr, 'rb') as file_in_handle:
-                                    file_gp_handle.write(file_in_handle.read())
-                                compss_delete_file(np_file_chr)
-                                compss_delete_file(s_file_chr)
-                                compss_delete_file(bp_file_chr)
-                                compss_delete_file(gp_file_chr)
+                            with open(np_file_chr, 'rb') as file_in_handle:
+                                file_np_handle.write(file_in_handle.read())
+                            with open(s_file_chr, 'rb') as file_in_handle:
+                                file_s_handle.write(file_in_handle.read())
+                            with open(bp_file_chr, 'rb') as file_in_handle:
+                                file_bp_handle.write(file_in_handle.read())
+                            with open(gp_file_chr, 'rb') as file_in_handle:
+                                file_gp_handle.write(file_in_handle.read())
 
         output_files_created = {}
         output_metadata = {}
-        # print(output_files)
         for result_file in output_files:
             if (
                     os.path.isfile(output_files[result_file]) is True
