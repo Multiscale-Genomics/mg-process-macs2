@@ -77,9 +77,25 @@ class Macs2(Tool):
             Name to be used to identify the files
         bam_file : str
             Location of the aligned FASTQ files as a bam file
+        bai_file : str
+            Location of the bam index file
+        narrowpeak : str
+            Location of the output narrowpeak file
+        summits_bed : str
+            Location of the output summits bed file
+        broadpeak : str
+            Location of the output broadpeak file
+        gappedpeak : str
+            Location of the output gappedpeak file
+        chromosome : str
+            If the tool is to be run over a single chromosome the matching
+            chromosome name should be specified. If None then the whole bam file
+            is analysed
         bam_file_bgd : str
             Location of the aligned FASTQ files as a bam file representing
             background values for the cell
+        bai_file_bgd : str
+            Location of the background bam index file
 
         Returns
         -------
