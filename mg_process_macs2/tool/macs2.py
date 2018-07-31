@@ -128,11 +128,7 @@ class Macs2(Tool):
         command_param.append('--outdir ' + output_dir)
         command_line = ' '.join(command_param)
 
-        cmdl = "samtools view -c -F 260 {}".format(bam_tmp_file)
-        process = subprocess.Popen(cmdl, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        process.wait()
-        proc_out, proc_err = process.communicate()  # pylint: disable=unused-variable
-        if int(proc_out) > 0:
+        if bam_utils_handle.bam_count_reads(bam_tmp_file, aligned=True) > 0:
             try:
                 args = shlex.split(command_line)
                 process = subprocess.Popen(args)
