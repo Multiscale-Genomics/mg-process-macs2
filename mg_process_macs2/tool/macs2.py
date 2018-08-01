@@ -117,15 +117,6 @@ class Macs2(Tool):
         od_list = bam_file.split("/")
         output_dir = "/".join(od_list[0:-1])
 
-        with open(narrowpeak, "w") as f_out:
-            f_out.write("")
-        with open(summits_bed, "w") as f_out:
-            f_out.write("")
-        with open(broadpeak, "w") as f_out:
-            f_out.write("")
-        with open(gappedpeak, "w") as f_out:
-            f_out.write("")
-
         from mg_common.tool.bam_utils import bamUtils
 
         bam_tmp_file = bam_file.replace(".bam", "." + str(chromosome) + ".bam")
