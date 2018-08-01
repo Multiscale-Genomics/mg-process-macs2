@@ -104,7 +104,7 @@ class Macs2(Tool):
         bam_utils_handle = bamUtils()
 
         command_param = [
-            'macs2 callpeak', '-t', bam_file, '-n', name
+            'macs2 callpeak --nomodel', '-t', bam_file, '-n', name
         ]
 
         command_param.append('--outdir ' + output_dir)
@@ -131,7 +131,7 @@ class Macs2(Tool):
         out_suffix = ['peaks.narrowPeak', 'peaks.broadPeak', 'peaks.gappedPeak', 'summits.bed']
         for f_suf in out_suffix:
             output_tmp = output_dir + '/' + name + '_' + f_suf
-            logger.info(output_tmp, os.path.isfile(output_tmp))
+            logger.info(output_tmp + ' - ' + str(os.path.isfile(output_tmp)))
             if os.path.isfile(output_tmp) is True and os.path.getsize(output_tmp) > 0:
                 if f_suf == 'peaks.narrowPeak':
                     with open(narrowpeak, "wb") as f_out:
@@ -203,20 +203,6 @@ class Macs2(Tool):
         if result is False:
             logger.fatal("MACS2: Something went wrong with the peak calling")
 
-        # Merge the results files into single files.
-        with open(output_files['narrow_peak'], 'wb') as file_np_handle:
-            with open(output_files['summits'], 'wb') as file_s_handle:
-                with open(output_files['broad_peak'], 'wb') as file_bp_handle:
-                    with open(output_files['gapped_peak'], 'wb') as file_gp_handle:
-                        with open(output_files['narrow_peak'], 'rb') as file_in_handle:
-                            file_np_handle.write(file_in_handle.read())
-                        with open(output_files['summits'], 'rb') as file_in_handle:
-                            file_s_handle.write(file_in_handle.read())
-                        with open(output_files['broad_peak'], 'rb') as file_in_handle:
-                            file_bp_handle.write(file_in_handle.read())
-                        with open(output_files['gapped_peak'], 'rb') as file_in_handle:
-                            file_gp_handle.write(file_in_handle.read())
-
         output_files_created = {}
         output_metadata = {}
         for result_file in output_files:
@@ -243,6 +229,7 @@ class Macs2(Tool):
                     }
                 )
             else:
+                logger.warn(output_files[result_file])
                 os.remove(output_files[result_file])
 
         logger.info('MACS2: GENERATED FILES: ', ' '.join(output_files))
