@@ -25,6 +25,7 @@ from utils import logger
 from basic_modules.metadata import Metadata
 from basic_modules.tool import Tool
 from mg_common.tool.bam_utils import bamUtilsTask
+from mg_common.tool.common import common
 
 
 # ------------------------------------------------------------------------------
@@ -96,18 +97,10 @@ class Macs2(Tool):
         od_list = bam_file.split("/")
         output_dir = "/".join(od_list[0:-1])
 
-        with open(narrowpeak, "w") as f_out:
-            f_out.write("")
-        with open(summits_bed, "w") as f_out:
-            f_out.write("")
-        with open(broadpeak, "w") as f_out:
-            f_out.write("")
-        with open(gappedpeak, "w") as f_out:
-            f_out.write("")
-
         from mg_common.tool.bam_utils import bamUtils
 
         bam_utils_handle = bamUtils()
+        common_handle = common()
 
         command_param = [
             'macs2 callpeak', " ".join(macs_params), '-t', bam_file, '-n', name
@@ -135,29 +128,11 @@ class Macs2(Tool):
 
             logger.info('Process Results 1:', process)
 
-        logger.info('LIST DIR 1:', os.listdir(output_dir))
-
-        out_suffix = ['peaks.narrowPeak', 'peaks.broadPeak', 'peaks.gappedPeak', 'summits.bed']
-        for f_suf in out_suffix:
-            output_tmp = output_dir + '/' + name + '_' + f_suf
-            logger.info(output_tmp, os.path.isfile(output_tmp))
-            if os.path.isfile(output_tmp) is True and os.path.getsize(output_tmp) > 0:
-                if f_suf == 'peaks.narrowPeak':
-                    with open(narrowpeak, "wb") as f_out:
-                        with open(output_tmp, "rb") as f_in:
-                            f_out.write(f_in.read())
-                elif f_suf == 'summits.bed':
-                    with open(summits_bed, "wb") as f_out:
-                        with open(output_tmp, "rb") as f_in:
-                            f_out.write(f_in.read())
-                elif f_suf == 'peaks.broadPeak':
-                    with open(broadpeak, "wb") as f_out:
-                        with open(output_tmp, "rb") as f_in:
-                            f_out.write(f_in.read())
-                elif f_suf == 'peaks.gappedPeak':
-                    with open(gappedpeak, "wb") as f_out:
-                        with open(output_tmp, "rb") as f_in:
-                            f_out.write(f_in.read())
+        output_tmp = output_dir + '/{}_{}'
+        common_handle.to_output_file(output_tmp.format(name, 'peaks.narrowPeak'), narrowpeak)
+        common_handle.to_output_file(output_tmp.format(name, 'peaks.broadPeak'), broadpeak)
+        common_handle.to_output_file(output_tmp.format(name, 'peaks.gappedPeak'), gappedpeak)
+        common_handle.to_output_file(output_tmp.format(name, 'summits.bed'), summits_bed)
 
         return True
 
