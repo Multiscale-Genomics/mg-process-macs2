@@ -59,3 +59,13 @@ def test_macs2():
 
     os.remove(resource_path + "macs2.Human.DRR000150.22_peaks.narrowPeak")
     os.remove(resource_path + "macs2.Human.DRR000150.22_peaks.summits.bed")
+    os.remove(resource_path + "macs2.Human.DRR000150.22_aln_filtered.CM000684.2.bam")
+    os.remove(resource_path + "macs2.Human.DRR000150.22_aln_filtered.CM000684.2_peaks.narrowPeak")
+    os.remove(resource_path + "macs2.Human.DRR000150.22_aln_filtered.CM000684.2_peaks.xls")
+    os.remove(resource_path + "macs2.Human.DRR000150.22_aln_filtered.CM000684.2_summits.bed")
+    os.remove(resource_path + "macs2.Human.DRR000150.22_aln_filtered.bam.bai")
+    os.remove(resource_path + "macs2.Human.DRR000150.22_aln_filtered.bam_tmp.bai")
+    os.remove(resource_path + "macs2.Human.DRR000150.22_peaks.broadPeak.CM000684.2")
+    os.remove(resource_path + "macs2.Human.DRR000150.22_peaks.gappedPeak.CM000684.2")
+    os.remove(resource_path + "macs2.Human.DRR000150.22_peaks.narrowPeak.CM000684.2")
+    os.remove(resource_path + "macs2.Human.DRR000150.22_peaks.summits.bed.CM000684.2")
