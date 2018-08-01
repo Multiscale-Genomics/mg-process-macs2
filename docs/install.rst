@@ -30,7 +30,7 @@ Software
 .. code-block:: none
    :linenos:
 
-   sudo apt-get install make build-essential zlib1g-dev libbz2-dev liblzma-dev curl pigz
+   sudo apt-get install make build-essential zlib1g-dev libbz2-dev liblzma-dev curl pigz libncurses5-dev
 
    cd ${HOME}/lib
    git clone https://github.com/samtools/htslib.git
