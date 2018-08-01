@@ -65,3 +65,8 @@ def test_test_pipeline():
 
     os.remove(resource_path + "macs2.Human.DRR000150.22_peaks.narrowPeak")
     os.remove(resource_path + "macs2.Human.DRR000150.22_peaks.summits.bed")
+    os.remove(resource_path + "macs2.Human.DRR000150.22_aln_filtered.bam.bai")
+    os.remove(resource_path + "macs2.Human.DRR000150.22_aln_filtered.bam_tmp.bai")
+    os.remove(resource_path + "macs2.Human.DRR000150.22_aln_filtered_peaks.narrowPeak")
+    os.remove(resource_path + "macs2.Human.DRR000150.22_aln_filtered_peaks.xls")
+    os.remove(resource_path + "macs2.Human.DRR000150.22_aln_filtered_summits.bed")
