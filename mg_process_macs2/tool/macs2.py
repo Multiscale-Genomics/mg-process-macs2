@@ -48,7 +48,7 @@ class Macs2(Tool):
 
     @staticmethod
     def macs2_peak_calling(  # pylint: disable=too-many-locals,too-many-statements,too-many-statements,too-many-arguments
-            name, bam_file, bai_file,
+            name, bam_file, bai_file,  # pylint: disable=unused-argument
             narrowpeak, summits_bed, broadpeak, gappedpeak):
         """
         Function to run MACS2 for peak calling on aligned sequence files and
