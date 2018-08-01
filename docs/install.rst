@@ -32,6 +32,8 @@ Software
 
    sudo apt-get install make build-essential zlib1g-dev libbz2-dev liblzma-dev curl pigz libncurses5-dev
 
+   pip install Cython
+
    cd ${HOME}/lib
    git clone https://github.com/samtools/htslib.git
    cd htslib
