@@ -228,23 +228,8 @@ class Macs2(Tool):
         if result is False:
             logger.fatal("MACS2: Something went wrong with the peak calling")
 
-        # Merge the results files into single files.
-        with open(output_files['narrow_peak'], 'wb') as file_np_handle:
-            with open(output_files['summits'], 'wb') as file_s_handle:
-                with open(output_files['broad_peak'], 'wb') as file_bp_handle:
-                    with open(output_files['gapped_peak'], 'wb') as file_gp_handle:
-                        with open(output_files['narrow_peak'], 'rb') as file_in_handle:
-                            file_np_handle.write(file_in_handle.read())
-                        with open(output_files['summits'], 'rb') as file_in_handle:
-                            file_s_handle.write(file_in_handle.read())
-                        with open(output_files['broad_peak'], 'rb') as file_in_handle:
-                            file_bp_handle.write(file_in_handle.read())
-                        with open(output_files['gapped_peak'], 'rb') as file_in_handle:
-                            file_gp_handle.write(file_in_handle.read())
-
         output_files_created = {}
         output_metadata = {}
-        # print(output_files)
         for result_file in output_files:
             if (
                     os.path.isfile(output_files[result_file]) is True
