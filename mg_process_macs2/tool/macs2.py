@@ -110,7 +110,7 @@ class Macs2(Tool):
         bam_utils_handle = bamUtils()
 
         command_param = [
-            'macs2 callpeak', '-t', bam_file, '-n', name
+            'macs2 callpeak --nomodel', '-t', bam_file, '-n', name
         ]
         if bam_file_bgd is not None:
             bgd_command = '-c ' + bam_file_bgd

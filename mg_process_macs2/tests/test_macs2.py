@@ -49,7 +49,7 @@ def test_macs2():
             {'assembly': 'test'}),
     }
 
-    macs_handle = Macs2({"macs_nomodel_param": True})
+    macs_handle = Macs2()
     macs_handle.run(input_files, metadata, output_files)
 
     assert os.path.isfile(resource_path + "macs2.Human.DRR000150.22_peaks.narrowPeak") is True
