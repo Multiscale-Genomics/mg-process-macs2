@@ -27,6 +27,63 @@ Software
 - HTSlib
 - SAMtools
 
+.. code-block:: none
+   :linenos:
+
+   sudo apt-get install make build-essential zlib1g-dev libbz2-dev liblzma-dev curl pigz
+
+   cd ${HOME}/lib
+   git clone https://github.com/samtools/htslib.git
+   cd htslib
+   autoheader
+   autoconf
+   ./configure --prefix=${HOME}/lib/htslib
+   make
+   make install
+
+   cd ${HOME}/lib
+   git clone https://github.com/samtools/samtools.git
+   cd samtools
+   autoheader
+   autoconf -Wno-syntax
+   ./configure --prefix=${HOME}/lib/samtools
+   make
+   make install
+
+The following will then need to be on your $PATH:
+
+.. code-block:: none
+   :linenos:
+
+   cd ${HOME}/bin
+
+   ln -s ${HOME}/lib/htslib/bin/bgzip bgzip
+   ln -s ${HOME}/lib/htslib/bin/htsfile htsfile
+   ln -s ${HOME}/lib/htslib/bin/tabix tabix
+
+   ln -s ${HOME}/lib/samtools/bin/ace2sam ace2sam
+   ln -s ${HOME}/lib/samtools/bin/blast2sam.pl blast2sam.pl
+   ln -s ${HOME}/lib/samtools/bin/bowtie2sam.pl bowtie2sam.pl
+   ln -s ${HOME}/lib/samtools/bin/export2sam.pl export2sam.pl
+   ln -s ${HOME}/lib/samtools/bin/interpolate_sam.pl interpolate_sam.pl
+   ln -s ${HOME}/lib/samtools/bin/maq2sam-long maq2sam-long
+   ln -s ${HOME}/lib/samtools/bin/maq2sam-short maq2sam-short
+   ln -s ${HOME}/lib/samtools/bin/md5fa md5fa
+   ln -s ${HOME}/lib/samtools/bin/md5sum-lite md5sum-lite
+   ln -s ${HOME}/lib/samtools/bin/novo2sam.pl novo2sam.pl
+   ln -s ${HOME}/lib/samtools/bin/plot-bamstats plot-bamstats
+   ln -s ${HOME}/lib/samtools/bin/psl2sam.pl psl2sam.pl
+   ln -s ${HOME}/lib/samtools/bin/sam2vcf.pl sam2vcf.pl
+   ln -s ${HOME}/lib/samtools/bin/samtools samtools
+   ln -s ${HOME}/lib/samtools/bin/samtools.pl samtools.pl
+   ln -s ${HOME}/lib/samtools/bin/seq_cache_populate.pl seq_cache_populate.pl
+   ln -s ${HOME}/lib/samtools/bin/soap2sam.pl soap2sam.pl
+   ln -s ${HOME}/lib/samtools/bin/varfilter.py varfilter.py
+   ln -s ${HOME}/lib/samtools/bin/wgsim wgsim
+   ln -s ${HOME}/lib/samtools/bin/wgsim_eval.pl wgsim_eval.pl
+   ln -s ${HOME}/lib/samtools/bin/zoom2sam.pl zoom2sam.pl
+
+
 Python Modules
 ^^^^^^^^^^^^^^
 
