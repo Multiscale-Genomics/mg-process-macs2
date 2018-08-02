@@ -124,6 +124,10 @@ class Macs2(Tool):
         bam_utils_handle.bam_split(bam_file, bai_file, chromosome, bam_tmp_file)
         common_handle = common()
 
+        # Test to see if the bam file contains paired end reads
+        if bam_utils_handle.bam_paired_reads(bam_file):
+            macs_params.append(["--format", "BAMPE"])
+
         command_param = [
             'macs2 callpeak', " ".join(macs_params), '-t', bam_tmp_file, '-n', name
         ]
@@ -316,6 +320,7 @@ class Macs2(Tool):
         command_params = []
 
         command_parameters = {
+            "macs2_format_param": ["--format", True],
             "macs_gsize_param": ["--gsize", True],
             "macs_tsize_param": ["--tsize", True],
             "macs_bw_param": ["--bw", True],
@@ -462,7 +467,6 @@ class Macs2(Tool):
 
         output_files_created = {}
         output_metadata = {}
-        # print(output_files)
         for result_file in output_files:
             if (
                     os.path.isfile(output_files[result_file]) is True
