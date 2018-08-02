@@ -91,16 +91,6 @@ class Macs2(Tool):
         od_list = bam_file.split("/")
         output_dir = "/".join(od_list[0:-1])
 
-        # Initialise the final output files
-        with open(narrowpeak, "w") as f_out:
-            f_out.write("")
-        with open(summits_bed, "w") as f_out:
-            f_out.write("")
-        with open(broadpeak, "w") as f_out:
-            f_out.write("")
-        with open(gappedpeak, "w") as f_out:
-            f_out.write("")
-
         from mg_common.tool.bam_utils import bamUtils
 
         bam_utils_handle = bamUtils()
@@ -130,8 +120,6 @@ class Macs2(Tool):
             logger.info('Process Results 1:', process)
 
         logger.info('LIST DIR 1:', os.listdir(output_dir))
-
-        out_suffix = ['peaks.narrowPeak', 'peaks.broadPeak', 'peaks.gappedPeak', 'summits.bed']
 
         output_tmp = output_dir + '/{}_{}'
         common_handle.to_output_file(output_tmp.format(name, 'peaks.narrowPeak'), narrowpeak)
