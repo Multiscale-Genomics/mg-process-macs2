@@ -49,9 +49,6 @@ import mg_process_macs2.tool
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
-    #'sphinx.ext.intersphinx',
-    #'sphinx.ext.todo',
-    #'sphinx.ext.coverage',
     'sphinx.ext.viewcode'
 ]
 

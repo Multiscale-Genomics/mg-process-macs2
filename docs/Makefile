@@ -4,7 +4,7 @@
 # You can set these variables from the command line.
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
-SPHINXPROJ    = MuG-ProcessTestPipelines
+SPHINXPROJ    = MuG-ProcessMACS2Pipelines
 SOURCEDIR     = .
 BUILDDIR      = _build
 
