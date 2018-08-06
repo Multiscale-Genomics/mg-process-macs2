@@ -315,7 +315,8 @@ class Macs2(Tool):
 
         Returns
         -------
-        list
+        list : list
+           List of lists with each list is the parameter and the matching value
         """
         command_params = []
 
