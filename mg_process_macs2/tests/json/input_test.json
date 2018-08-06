@@ -2,7 +2,7 @@
     {
         "compressed": 0,
         "_id": "unique_file_id",
-        "data_type": "text",
+        "data_type": "data_chip_seq",
         "file_type": "bam",
         "file_path": "tests/data/macs2.Human.DRR000150.22_aln_filtered.bam",
         "sources": [],
