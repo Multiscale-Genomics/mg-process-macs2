@@ -340,7 +340,7 @@ class Macs2(Tool):
             "macs_broad-cutoff_param": ["--broad-cutoff", True],
             "macs_to-large_param": ["--to-large", False],
             "macs_down-sample_param": ["--down-sample", False],
-            "macs_bdg_param": ["--bdg", True],
+            "macs_bdg_param": ["--bdg", False],
             "macs_call-summits_param": ["--call-summits", True],
         }
 
@@ -488,7 +488,8 @@ class Macs2(Tool):
                     meta_data={
                         "assembly": input_metadata["bam"].meta_data["assembly"],
                         "tool": "macs2",
-                        "bed_type": output_bed_types[result_file]
+                        "bed_type": output_bed_types[result_file],
+                        "parameters": command_params
                     }
                 )
             else:
