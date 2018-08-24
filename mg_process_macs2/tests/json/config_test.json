@@ -29,7 +29,7 @@
                     "tool": "macs2",
                     "description": "Output"
                 },
-                "file_path": "tests/data/macs2.Human.DRR000150.22_filtered_peaks.narrowPeak",
+                "file_path": "mg_process_macs2/tests/data/macs2.Human.DRR000150.22_filtered_peaks.narrowPeak",
                 "data_type": "data_chip_seq",
                 "compressed": "null"
             }
@@ -44,7 +44,7 @@
                     "tool": "macs2",
                     "description": "Output"
                 },
-                "file_path": "tests/data/macs2.Human.DRR000150.22_filtered_summits.bed",
+                "file_path": "mg_process_macs2/tests/data/macs2.Human.DRR000150.22_filtered_summits.bed",
                 "data_type": "data_chip_seq",
                 "compressed": "null"
             }
@@ -59,7 +59,7 @@
                     "tool": "macs2",
                     "description": "Output"
                 },
-                "file_path": "tests/data/macs2.Human.DRR000150.22_filtered_peaks.broadPeak",
+                "file_path": "mg_process_macs2/tests/data/macs2.Human.DRR000150.22_filtered_peaks.broadPeak",
                 "data_type": "data_chip_seq",
                 "compressed": "null"
             }
@@ -74,7 +74,7 @@
                     "tool": "macs2",
                     "description": "Output"
                 },
-                "file_path": "tests/data/macs2.Human.DRR000150.22_filtered_peaks.gappedPeak",
+                "file_path": "mg_process_macs2/tests/data/macs2.Human.DRR000150.22_filtered_peaks.gappedPeak",
                 "data_type": "data_chip_seq",
                 "compressed": "null"
             }
