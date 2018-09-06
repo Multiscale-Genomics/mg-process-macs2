@@ -386,9 +386,8 @@ class Macs2(Tool):
             List of matching metadata dict objects
 
         """
-        root_name = input_files['bam'].split("/")
-        root_name[-1] = root_name[-1].replace('.bam', '')
-        name = root_name[-1]
+        root_name = os.path.split(input_files['bam'])
+        name = root_name[1].replace('.bam', '')
 
         # input and output share most metadata
         output_bed_types = {
