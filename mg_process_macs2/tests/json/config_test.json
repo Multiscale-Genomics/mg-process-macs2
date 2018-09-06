@@ -9,6 +9,10 @@
     ],
     "arguments": [
         {
+            "name": "execution",
+            "value": "mg_process_macs2/tests/data/"
+        },
+        {
             "name": "project",
             "value": "run001"
         },
