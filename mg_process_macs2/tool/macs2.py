@@ -398,6 +398,11 @@ class Macs2(Tool):
             'gapped_peak': "bed12+3"
         }
 
+        for k in output_bed_types:
+            if output_files[k] is None:
+                output_files[k] = os.path.join(
+                    self.configuration['execution'], name + "_" + k + ".bed")
+
         command_params = self.get_macs2_params(self.configuration)
 
         bam_utils_handle = bamUtilsTask()
