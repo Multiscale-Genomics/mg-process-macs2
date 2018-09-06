@@ -19,10 +19,6 @@
         {
             "name": "description",
             "value": null
-        },
-        {
-            "name": "macs_nomodel_param",
-            "value": true
         }
     ],
     "output_files": [
