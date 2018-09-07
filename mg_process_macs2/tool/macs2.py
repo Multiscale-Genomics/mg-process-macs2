@@ -420,8 +420,8 @@ class Macs2(Tool):
 
         logger.info("MACS2 COMMAND PARAMS: " + ", ".join(command_params))
 
-        for i, j in enumerate(chr_list):
-            chr_list[i] = chr_list[i].replace("|", "_")
+        for i in enumerate(chr_list):
+            chr_list[i[0]] = chr_list[i[0]].replace("|", "_")
 
         for chromosome in chr_list:
             if 'bam_bg' in input_files:
