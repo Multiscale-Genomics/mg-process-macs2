@@ -248,6 +248,9 @@ class Macs2(Tool):
 
         chr_list = bam_utils_handle.bam_list_chromosomes(input_files['bam'])
 
+        for i in enumerate(chr_list):
+            chr_list[i[0]] = chr_list[i[0]].replace("|", "_")
+
         logger.info("MACS2 COMMAND PARAMS: " + ", ".join(command_params))
 
         for chromosome in chr_list:
