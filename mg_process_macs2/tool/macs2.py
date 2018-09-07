@@ -420,6 +420,9 @@ class Macs2(Tool):
 
         logger.info("MACS2 COMMAND PARAMS: " + ", ".join(command_params))
 
+        for i in enumerate(chr_list):
+            chr_list[i] = chr_list[i].replace("|", "_")
+
         for chromosome in chr_list:
             if 'bam_bg' in input_files:
                 result = self.macs2_peak_calling(
