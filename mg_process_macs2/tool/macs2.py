@@ -420,30 +420,31 @@ class Macs2(Tool):
 
         logger.info("MACS2 COMMAND PARAMS: " + ", ".join(command_params))
 
-        for i in enumerate(chr_list):
-            chr_list[i[0]] = chr_list[i[0]].replace("|", "_")
-
+        chr_dict = {}
         for chromosome in chr_list:
+            chr_dict[chromosome] = chromosome.replace("|", "_")
+
+        for chromosome in chr_dict:
             if 'bam_bg' in input_files:
                 result = self.macs2_peak_calling(
                     name + "." + str(chromosome),
                     str(input_files['bam']), str(input_files['bam']) + '.bai',
                     str(input_files['bam_bg']), str(input_files['bam_bg']) + '.bai',
                     command_params,
-                    str(output_files['narrow_peak']) + "." + str(chromosome),
-                    str(output_files['summits']) + "." + str(chromosome),
-                    str(output_files['broad_peak']) + "." + str(chromosome),
-                    str(output_files['gapped_peak']) + "." + str(chromosome),
+                    str(output_files['narrow_peak']) + "." + str(chr_dict[chromosome]),
+                    str(output_files['summits']) + "." + str(chr_dict[chromosome]),
+                    str(output_files['broad_peak']) + "." + str(chr_dict[chromosome]),
+                    str(output_files['gapped_peak']) + "." + str(chr_dict[chromosome]),
                     chromosome)
             else:
                 result = self.macs2_peak_calling_nobgd(
                     name + "." + str(chromosome),
                     str(input_files['bam']), str(input_files['bam']) + '.bai',
                     command_params,
-                    str(output_files['narrow_peak']) + "." + str(chromosome),
-                    str(output_files['summits']) + "." + str(chromosome),
-                    str(output_files['broad_peak']) + "." + str(chromosome),
-                    str(output_files['gapped_peak']) + "." + str(chromosome),
+                    str(output_files['narrow_peak']) + "." + str(chr_dict[chromosome]),
+                    str(output_files['summits']) + "." + str(chr_dict[chromosome]),
+                    str(output_files['broad_peak']) + "." + str(chr_dict[chromosome]),
+                    str(output_files['gapped_peak']) + "." + str(chr_dict[chromosome]),
                     chromosome)
 
             if result is False:
@@ -454,11 +455,15 @@ class Macs2(Tool):
             with open(output_files['summits'], 'wb') as file_s_handle:
                 with open(output_files['broad_peak'], 'wb') as file_bp_handle:
                     with open(output_files['gapped_peak'], 'wb') as file_gp_handle:
-                        for chromosome in chr_list:
-                            np_file_chr = "{}.{}".format(output_files['narrow_peak'], chromosome)
-                            s_file_chr = "{}.{}".format(output_files['summits'], chromosome)
-                            bp_file_chr = "{}.{}".format(output_files['broad_peak'], chromosome)
-                            gp_file_chr = "{}.{}".format(output_files['gapped_peak'], chromosome)
+                        for chromosome in chr_dict:
+                            np_file_chr = "{}.{}".format(
+                                output_files['narrow_peak'], chr_dict[chromosome])
+                            s_file_chr = "{}.{}".format(
+                                output_files['summits'], chr_dict[chromosome])
+                            bp_file_chr = "{}.{}".format(
+                                output_files['broad_peak'], chr_dict[chromosome])
+                            gp_file_chr = "{}.{}".format(
+                                output_files['gapped_peak'], chr_dict[chromosome])
                             if hasattr(sys, '_run_from_cmdl') is True:
                                 with open(np_file_chr, 'rb') as file_in_handle:
                                     file_np_handle.write(file_in_handle.read())
