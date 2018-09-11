@@ -196,7 +196,7 @@ class Macs2(Tool):
 
         return command_params
 
-    def run(self, input_files, input_metadata, output_files):  # pylint: disable=too-many-locals,too-many-statements
+    def run(self, input_files, input_metadata, output_files):  # pylint: disable=too-many-locals,too-many-statements,too-many-branches
         """
         The main function to run MACS 2 for peak calling over a given BAM file
         and matching background BAM file.
